@@ -34,16 +34,18 @@ class LoginRegisterController: UIViewController {
         if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
             handleLogin()
         } else {
-//            handleRegister()
+            handleRegister()
         }
     }
     
     func handleLogin() {
-        guard let email = emailTextField.text,
-            let password = passwordTextField.text else {
+        guard let email = emailTextField.text, !email.isEmpty,
+            let password = passwordTextField.text, !password.isEmpty else {
                 print("Invalid form")
                 return
         }
+        // Handle login
+        print("handle login")
     }
     
     let nameTextField: UITextField = {
@@ -88,8 +90,9 @@ class LoginRegisterController: UIViewController {
         imageView.tintColor = .white
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
+        
 
-//        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView)))
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView)))
         imageView.isUserInteractionEnabled = true
         
         return imageView
@@ -157,6 +160,10 @@ class LoginRegisterController: UIViewController {
         profileImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -12).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        
+        // Make the profile image circular
+        profileImageView.layer.cornerRadius = 150 / 2
+        profileImageView.clipsToBounds = true
     }
     
     var inputsContainerViewHeightAnchor: NSLayoutConstraint?
